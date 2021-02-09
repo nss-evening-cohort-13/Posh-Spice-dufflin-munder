@@ -36,7 +36,7 @@ namespace DufflinMunder
                 switch (initialSelection)
                 {
                     case "1":
-                        Console.WriteLine("Which Salesperson are you?");
+                        Console.WriteLine("Which person are you?");
                         foreach (var emp in SalesEmployees)
                         {
                             Console.WriteLine(emp.EmployeeName);
