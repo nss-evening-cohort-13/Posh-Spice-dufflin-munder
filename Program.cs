@@ -38,15 +38,27 @@ namespace DufflinMunder
                 switch (initialSelection)
                 {
                     case "1":
+                        Console.Clear();
+
                         Console.WriteLine("Which person are you?");
+
                         var counter = 1;
+
                         foreach (var employee in SalesEmployees)
                         {
                             Console.WriteLine($"{counter}. {employee.EmployeeName}");
                             counter++;
                         }
-                        var employeeChoice = Console.ReadLine();
-                        Console.WriteLine($"Hi, {SalesEmployees[(Int32.Parse(employeeChoice) - 1)].EmployeeName} ");
+
+                        var employeeInput = Console.ReadLine();
+                        var chosenEmployee = SalesEmployees[(Int32.Parse(employeeInput) - 1)];
+
+                        Console.Clear();
+
+                        Console.WriteLine($"Hi, {chosenEmployee.EmployeeName}!! ");
+                        Console.WriteLine();
+                        Console.WriteLine($"Sales Agent: {chosenEmployee.EmployeeName} ");
+
                         break;
                     case "2":
                         Console.WriteLine("case 2");
