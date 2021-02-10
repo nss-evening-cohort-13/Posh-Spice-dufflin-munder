@@ -69,7 +69,7 @@ namespace DufflinMunder
                         var salesTotal = Console.ReadLine();
                         
                         StartOfRecurring:
-                        Console.Write("Recurring (ex: Monthly, Anually, Quarterly): ");
+                        Console.Write("Recurring (ex: Monthly, Annually, Quarterly): ");
                         var recurringAmount = Console.ReadLine();
                         Recurring passedInput = Recurring.None;
                         if(Enum.IsDefined(typeof(Recurring), recurringAmount))
@@ -78,7 +78,7 @@ namespace DufflinMunder
                         }
                         else
                         {
-                            Console.WriteLine("Incorrect Input! Try Monthly, Anually, Quarterly, or Weekly.");
+                            Console.WriteLine("Incorrect Input! Try Monthly, Annually, Quarterly, or Weekly.");
                             goto StartOfRecurring;
                         }
 
@@ -87,6 +87,7 @@ namespace DufflinMunder
 
                         chosenEmployee.Sales.Add(Int32.Parse(clientId), new Sales(chosenEmployee.EmployeeName, clientName, Int32.Parse(clientId), Int32.Parse(salesTotal), passedInput, timeFrame));
 
+                        Console.Clear();
                         Console.WriteLine($"Sale Input Recieved! Good work {chosenEmployee.EmployeeName}");
 
 
