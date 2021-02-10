@@ -60,7 +60,10 @@ namespace DufflinMunder
                         
                         break;
                     case "4":
-                        Console.WriteLine("case 4");
+                        Console.Clear();
+                        Console.WriteLine("Please enter the client ID number:");
+                        var clientId = Console.ReadLine();
+
                         break;
                     default:
                         Console.WriteLine("bu-bye");
