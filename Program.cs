@@ -12,6 +12,7 @@ namespace DufflinMunder
             Jim.EmployeeName = "Jim";
             var Dwight = new SalesEmployee();
             Dwight.EmployeeName = "Dwight";
+
             var Oscar = new AccountingEmployee();
             Oscar.EmployeeName = "Oscar";
             var Kevin = new AccountingEmployee();
@@ -60,8 +61,10 @@ namespace DufflinMunder
                             Console.WriteLine($"{counter}. {employee.EmployeeName}");
                             counter++;
                         }
-                        var accountantSelected = counter;
-                        Console.WriteLine($"Monthly Sales Report For: {accountantSelected}");
+                        var userInput = Console.ReadLine();
+                        Console.Clear();
+                        var selectedAccountant = Accountants[(Int32.Parse(userInput) - 1)];
+                        Console.WriteLine($"Monthly Sales Report For: {selectedAccountant.EmployeeName}");
                         break;
                     case "3":
                         Console.Clear();
