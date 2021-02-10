@@ -9,8 +9,11 @@ namespace DufflinMunder
         static void Main(string[] args)
         {
             var Jim = new SalesEmployee();
-            Jim.EmployeeName = "Jim";
+            Jim.EmployeeName = "Jim Halpert";
             var Dwight = new SalesEmployee();
+            Dwight.EmployeeName = "Dwight Schrute";
+            var Phyllis = new SalesEmployee { EmployeeName = "Phyllis Leaf" };
+
             Dwight.EmployeeName = "Dwight";
 
             var Oscar = new AccountingEmployee();
@@ -21,7 +24,8 @@ namespace DufflinMunder
             var SalesEmployees = new List<SalesEmployee>
             {
                 Jim,
-                Dwight
+                Dwight,
+                Phyllis,
             };
             var Accountants = new List<AccountingEmployee>
             {
@@ -46,11 +50,59 @@ namespace DufflinMunder
                 switch (initialSelection)
                 {
                     case "1":
+                        Console.Clear();
+
                         Console.WriteLine("Which person are you?");
-                        foreach (var emp in SalesEmployees)
+
+                        var counter = 1;
+
+                        foreach (var employee in SalesEmployees)
                         {
-                            Console.WriteLine(emp.EmployeeName);
+                            Console.WriteLine($"{counter}. {employee.EmployeeName}");
+                            counter++;
                         }
+
+                        var employeeInput = Console.ReadLine();
+                        var chosenEmployee = SalesEmployees[(Int32.Parse(employeeInput) - 1)];
+
+                        Console.Clear();
+
+                        Console.WriteLine($"Hi, {chosenEmployee.EmployeeName}!! ");
+                        Console.WriteLine();
+                        Console.WriteLine($"Sales Agent: {chosenEmployee.EmployeeName} ");
+
+                        Console.Write("Client: ");
+                        string clientName = Console.ReadLine();
+
+                        Console.Write("ClientId: ");
+                        var clientId = Console.ReadLine();  
+
+                        Console.Write("Sale: $");
+                        var salesTotal = Console.ReadLine();
+                        
+                        StartOfRecurring:
+                        Console.Write("Recurring (ex: Monthly, Annually, Quarterly): ");
+                        var recurringAmount = Console.ReadLine();
+                        Recurring passedInput = Recurring.None;
+                        if(Enum.IsDefined(typeof(Recurring), recurringAmount))
+                        {
+                            passedInput = (Recurring)Enum.Parse(typeof(Recurring), recurringAmount);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Incorrect Input! Try Monthly, Annually, Quarterly, or Weekly.");
+                            goto StartOfRecurring;
+                        }
+
+                        Console.Write("Time Frame: ");
+                        var timeFrame = Console.ReadLine();
+
+                        chosenEmployee.Sales.Add(Int32.Parse(clientId), new Sales(chosenEmployee.EmployeeName, clientName, Int32.Parse(clientId), Int32.Parse(salesTotal), passedInput, timeFrame));
+
+                        Console.Clear();
+                        Console.WriteLine($"Sale Input Recieved! Good work {chosenEmployee.EmployeeName}");
+
+
                         break;
                     case "2":
                         Console.Clear();
