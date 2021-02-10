@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using DufflinMunder.Employees;
 
@@ -53,11 +53,6 @@ namespace DufflinMunder
                         var newPerson = new SalesEmployee { EmployeeName = newSalesperson};
                         SalesEmployees.Add(newPerson);
                         Console.Clear();
-                        foreach (var emp in SalesEmployees)
-                        {
-                            Console.WriteLine(emp.EmployeeName);
-                        }
-                        
                         break;
                     case "4":
                         Console.WriteLine("case 4");
