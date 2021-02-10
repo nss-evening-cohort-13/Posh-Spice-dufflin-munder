@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using DufflinMunder.Employees;
 
@@ -64,18 +64,23 @@ namespace DufflinMunder
                         Console.WriteLine($"Monthly Sales Report For: {accountantSelected}");
                         break;
                     case "3":
-                        Console.WriteLine("case 3");
+                        Console.Clear();
+                        Console.WriteLine("Please enter new saleperson's name:");
+                        var newSalesperson = Console.ReadLine();
+                        var newPerson = new SalesEmployee { EmployeeName = newSalesperson};
+                        SalesEmployees.Add(newPerson);
+                        Console.Clear();
                         break;
                     case "4":
                         Console.WriteLine("case 4");
                         break;
                     default:
-                        Console.WriteLine("invalid selection");
+                        Console.WriteLine("bu-bye");
                         break;
                 }
 
             } while (initialSelection != "5");
-                
+
         }
     }
 }
