@@ -13,6 +13,16 @@ namespace DufflinMunder
         public Recurring Recurring { get; set; }
         public string TimeFrame { get; set; }
 
+        public Sales (string salesPerson, string client, int clientId, int salesTotal, Recurring recurring, string timeframe)
+	{
+            SalesPerson = salesPerson;
+            Client = client;
+            ClientId = clientId;
+            SalesTotal = salesTotal;
+            Recurring = recurring;
+            TimeFrame = timeframe;
+
+	}
     }
 
      enum Recurring {
