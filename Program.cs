@@ -9,9 +9,9 @@ namespace DufflinMunder
         static void Main(string[] args)
         {
             var Jim = new SalesEmployee();
-            Jim.EmployeeName = "Jim";
+            Jim.EmployeeName = "Jim Halpert";
             var Dwight = new SalesEmployee();
-            Dwight.EmployeeName = "Dwight";
+            Dwight.EmployeeName = "Dwight Schrute";
             var Phyllis = new SalesEmployee { EmployeeName = "Phyllis Leaf" };
 
             var SalesEmployees = new List<SalesEmployee>
@@ -58,6 +58,37 @@ namespace DufflinMunder
                         Console.WriteLine($"Hi, {chosenEmployee.EmployeeName}!! ");
                         Console.WriteLine();
                         Console.WriteLine($"Sales Agent: {chosenEmployee.EmployeeName} ");
+
+                        Console.Write("Client: ");
+                        string clientName = Console.ReadLine();
+
+                        Console.Write("ClientId: ");
+                        var clientId = Console.ReadLine();  
+
+                        Console.Write("Sale: $");
+                        var salesTotal = Console.ReadLine();
+                        
+                        StartOfRecurring:
+                        Console.Write("Recurring (ex: Monthly, Anually, Quarterly): ");
+                        var recurringAmount = Console.ReadLine();
+                        Recurring passedInput = Recurring.None;
+                        if(Enum.IsDefined(typeof(Recurring), recurringAmount))
+                        {
+                            passedInput = (Recurring)Enum.Parse(typeof(Recurring), recurringAmount);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Incorrect Input! Try Monthly, Anually, Quarterly, or Weekly.");
+                            goto StartOfRecurring;
+                        }
+
+                        Console.Write("Time Frame: ");
+                        var timeFrame = Console.ReadLine();
+
+                        chosenEmployee.Sales.Add(Int32.Parse(clientId), new Sales(chosenEmployee.EmployeeName, clientName, Int32.Parse(clientId), Int32.Parse(salesTotal), passedInput, timeFrame));
+
+                        Console.WriteLine($"Sale Input Recieved! Good work {chosenEmployee.EmployeeName}");
+
 
                         break;
                     case "2":

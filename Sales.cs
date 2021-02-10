@@ -26,6 +26,7 @@ namespace DufflinMunder
     }
 
      enum Recurring {
+        None,
         Weekly,
         Monthly,
         Quarterly,
