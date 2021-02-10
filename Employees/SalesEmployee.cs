@@ -6,6 +6,6 @@ namespace DufflinMunder.Employees
 {
     class SalesEmployee : EmployeeBase
     {
-        public Dictionary<Sales.ClientId, Sales> Sales { get; set; } = new Dictionary<Sales.ClientId, Sales>();
+        public Dictionary<int, Sales> Sales { get; set; } = new Dictionary<int, Sales>();
     }
 }
