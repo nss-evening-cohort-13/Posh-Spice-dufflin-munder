@@ -12,11 +12,20 @@ namespace DufflinMunder
             Jim.EmployeeName = "Jim";
             var Dwight = new SalesEmployee();
             Dwight.EmployeeName = "Dwight";
+            var Oscar = new AccountingEmployee();
+            Oscar.EmployeeName = "Oscar";
+            var Kevin = new AccountingEmployee();
+            Kevin.EmployeeName = "Kevin";
 
             var SalesEmployees = new List<SalesEmployee>
             {
                 Jim,
                 Dwight
+            };
+            var Accountants = new List<AccountingEmployee>
+            {
+                Oscar,
+                Kevin
             };
             var initialSelection = "";
             do
@@ -43,7 +52,16 @@ namespace DufflinMunder
                         }
                         break;
                     case "2":
-                        Console.WriteLine("case 2");
+                        Console.Clear();
+                        Console.WriteLine("Which accountant are you?");
+                        var counter = 1;
+                        foreach (var employee in Accountants)
+                        {
+                            Console.WriteLine($"{counter}. {employee.EmployeeName}");
+                            counter++;
+                        }
+                        var accountantSelected = counter;
+                        Console.WriteLine($"Monthly Sales Report For: {accountantSelected}");
                         break;
                     case "3":
                         Console.WriteLine("case 3");
