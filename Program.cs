@@ -96,13 +96,23 @@ namespace DufflinMunder
                         Console.WriteLine("case 2");
                         break;
                     case "3":
-                        Console.WriteLine("case 3");
+                        Console.Clear();
+                        Console.WriteLine("Please enter new saleperson's name:");
+                        var newSalesperson = Console.ReadLine();
+                        var newPerson = new SalesEmployee { EmployeeName = newSalesperson};
+                        SalesEmployees.Add(newPerson);
+                        Console.Clear();
+                        foreach (var emp in SalesEmployees)
+                        {
+                            Console.WriteLine(emp.EmployeeName);
+                        }
+                        
                         break;
                     case "4":
                         Console.WriteLine("case 4");
                         break;
                     default:
-                        Console.WriteLine("invalid selection");
+                        Console.WriteLine("bu-bye");
                         break;
                 }
 
