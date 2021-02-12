@@ -14,12 +14,32 @@ namespace DufflinMunder
             Dwight.EmployeeName = "Dwight Schrute";
             var Phyllis = new SalesEmployee { EmployeeName = "Phyllis Leaf" };
 
+            Dwight.EmployeeName = "Dwight";
+
+            var Oscar = new AccountingEmployee();
+            Oscar.EmployeeName = "Oscar";
+            var Kevin = new AccountingEmployee();
+            Kevin.EmployeeName = "Kevin";
+
             var SalesEmployees = new List<SalesEmployee>
             {
                 Jim,
                 Dwight,
                 Phyllis,
             };
+            var Accountants = new List<AccountingEmployee>
+            {
+                Oscar,
+                Kevin
+            };
+            var dummySale1 = new Sale(Phyllis.EmployeeName, "Taco Hell", 2433, 52000, Recurring.Annually, "5 months");
+            var dummySale2 = new Sale(Dwight.EmployeeName, "Bed, Math and Beyond", 0444, 29340, Recurring.Monthly, "10 months");
+            var dummySale3 = new Sale(Jim.EmployeeName, "Catalina Wine Mixer", 4444, 125000, Recurring.Annually, "1 month");
+            var dummySale4 = new Sale(Phyllis.EmployeeName, "Vance Refridgeration", 5252, 44500, Recurring.Weekly, "1 month");
+            Phyllis.SalesDictionary.Add(dummySale1.ClientId, dummySale1);
+            Phyllis.SalesDictionary.Add(dummySale4.ClientId, dummySale4);
+            Dwight.SalesDictionary.Add(dummySale2.ClientId, dummySale2);
+            Jim.SalesDictionary.Add(dummySale3.ClientId, dummySale3);
             var initialSelection = "";
             do
             {
@@ -85,7 +105,7 @@ namespace DufflinMunder
                         Console.Write("Time Frame: ");
                         var timeFrame = Console.ReadLine();
 
-                        chosenEmployee.Sales.Add(Int32.Parse(clientId), new Sales(chosenEmployee.EmployeeName, clientName, Int32.Parse(clientId), Int32.Parse(salesTotal), passedInput, timeFrame));
+                        chosenEmployee.SalesDictionary.Add(Int32.Parse(clientId), new Sale(chosenEmployee.EmployeeName, clientName, Int32.Parse(clientId), Int32.Parse(salesTotal), passedInput, timeFrame));
 
                         Console.Clear();
                         Console.WriteLine($"Sale Input Recieved! Good work {chosenEmployee.EmployeeName}");
@@ -93,7 +113,40 @@ namespace DufflinMunder
 
                         break;
                     case "2":
-                        Console.WriteLine("case 2");
+                        Console.Clear();
+                        Console.WriteLine("Which accountant are you?");
+                        var accountantCounter = 1;
+                        foreach (var employee in Accountants)
+                        {
+                            Console.WriteLine($"{accountantCounter}. {employee.EmployeeName}");
+                            accountantCounter++;
+                        }
+                        var userInput = Console.ReadLine();
+                        Console.Clear();
+                        var selectedAccountant = Accountants[(Int32.Parse(userInput) - 1)];
+                        Console.WriteLine($"Monthly Sales Report For: {selectedAccountant.EmployeeName}");
+                        Console.WriteLine();
+                        var dictionaryOfAllSales = new Dictionary<int, Sale>();
+                        foreach (var employee in SalesEmployees)
+                        {
+                            foreach (var item in employee.SalesDictionary)
+                            {
+                                dictionaryOfAllSales.Add(item.Key, item.Value);
+                            }
+                        }
+                        foreach (var employee in SalesEmployees)
+                        {
+                            Console.WriteLine($"    {employee.EmployeeName}");
+                            var total = 0;
+                            Console.WriteLine(@"        Clients:");
+                            foreach (var (Key, Value) in employee.SalesDictionary)
+                            {
+                                Console.WriteLine($"        {Value.Client}");
+                                total += Value.SalesTotal;
+                            }
+                            Console.WriteLine($"    Total: ${total}");
+                            Console.WriteLine();
+                        }
                         break;
                     case "3":
                         Console.Clear();
