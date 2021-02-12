@@ -20,6 +20,16 @@ namespace DufflinMunder
                 Dwight,
                 Phyllis,
             };
+
+            var dummySale1 = new Sales(Phyllis.EmployeeName, "Taco Hell", 2433, 52000, Recurring.Annually, "5 months");
+            var dummySale2 = new Sales(Dwight.EmployeeName, "Bed, Math and Beyond", 0444, 29340, Recurring.Monthly, "10 months");
+            var dummySale3 = new Sales(Jim.EmployeeName, "Catalina Wine Mixer", 4444, 125000, Recurring.Annually, "1 month");
+            var dummySale4 = new Sales(Phyllis.EmployeeName, "Vance Refridgeration", 5252, 44500, Recurring.Weekly, "1 month");
+            Phyllis.Sales.Add(dummySale1.ClientId, dummySale1);
+            Phyllis.Sales.Add(dummySale4.ClientId, dummySale4);
+            Dwight.Sales.Add(dummySale2.ClientId, dummySale2);
+            Jim.Sales.Add(dummySale3.ClientId, dummySale3);
+
             var initialSelection = "";
             do
             {
@@ -111,8 +121,18 @@ namespace DufflinMunder
                     case "4":
                         Console.Clear();
                         Console.WriteLine("Please enter the client ID number:");
-                        var clientId = Console.ReadLine();
-
+                        var clientNumber = Console.ReadLine();
+                        var dictionaryOfAllSales = new Dictionary<int, Sales>();
+                        foreach (var employee in SalesEmployees)
+                        {
+                            
+                            foreach (var sale in employee.Sales)
+                            {
+                                dictionaryOfAllSales.Add(sale.Key, sale.Value);  
+                            }
+                        }
+                        Console.WriteLine(dictionaryOfAllSales[Int32.Parse(clientNumber)].SalesPerson);
+                        Console.WriteLine(dictionaryOfAllSales[Int32.Parse(clientNumber)].Client);
                         break;
                     default:
                         Console.WriteLine("bu-bye");
