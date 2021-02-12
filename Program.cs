@@ -59,7 +59,15 @@ namespace DufflinMunder
                 {
                     case "1":
                         Console.Clear();
+                        var dictionaryOfAllSales = new Dictionary<int, Sale>();
+                        foreach (var employee in SalesEmployees)
+                        {
 
+                            foreach (var sale in employee.SalesDictionary)
+                            {
+                                dictionaryOfAllSales.Add(sale.Key, sale.Value);
+                            }
+                        }
                         Console.WriteLine("Which person are you?");
 
                         var counter = 1;
@@ -82,8 +90,15 @@ namespace DufflinMunder
                         Console.Write("Client: ");
                         string clientName = Console.ReadLine();
 
+                        enterNewClientId:
                         Console.Write("ClientId: ");
-                        var clientId = Console.ReadLine();  
+                        var clientId = Console.ReadLine();
+
+                        if (dictionaryOfAllSales.ContainsKey(Int32.Parse(clientId)))
+                        {
+                            Console.WriteLine("Client Id already exists");
+                            goto enterNewClientId;
+                        }
 
                         Console.Write("Sale: $");
                         var salesTotal = Console.ReadLine();
@@ -126,14 +141,6 @@ namespace DufflinMunder
                         var selectedAccountant = Accountants[(Int32.Parse(userInput) - 1)];
                         Console.WriteLine($"Monthly Sales Report For: {selectedAccountant.EmployeeName}");
                         Console.WriteLine();
-                        var dictionaryOfAllSales = new Dictionary<int, Sale>();
-                        foreach (var employee in SalesEmployees)
-                        {
-                            foreach (var item in employee.SalesDictionary)
-                            {
-                                dictionaryOfAllSales.Add(item.Key, item.Value);
-                            }
-                        }
                         foreach (var employee in SalesEmployees)
                         {
                             Console.WriteLine($"    {employee.EmployeeName}");
@@ -157,7 +164,25 @@ namespace DufflinMunder
                         Console.Clear();
                         break;
                     case "4":
-                        Console.WriteLine("case 4");
+                        Console.Clear();
+                        Console.WriteLine("Please enter the client ID number:");
+                        var clientNumber = Console.ReadLine();
+                        var dictionaryOfAllOfTheSales = new Dictionary<int, Sale>();
+                        foreach (var employee in SalesEmployees)
+                        {
+
+                            foreach (var sale in employee.SalesDictionary)
+                            {
+                                dictionaryOfAllOfTheSales.Add(sale.Key, sale.Value);
+                            }
+                        }
+                        Console.Clear();
+                        Console.WriteLine($"ClientId: {dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].ClientId}");
+                        Console.WriteLine($"Client: {dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].Client}");
+                        Console.WriteLine($"Salesperson: {dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].SalesPerson}");
+                        Console.WriteLine($"Sales Total: ${dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].SalesTotal}");
+                        Console.WriteLine($"Recurring: {dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].Recurring}");
+                        Console.WriteLine($"Timeframe: {dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].TimeFrame}");
                         break;
                     default:
                         Console.WriteLine("bu-bye");
