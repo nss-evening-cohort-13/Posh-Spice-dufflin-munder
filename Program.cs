@@ -8,19 +8,20 @@ namespace DufflinMunder
     {
         static void Main(string[] args)
         {
+            //Creating Some employees to start with
             var Jim = new SalesEmployee();
             Jim.EmployeeName = "Jim Halpert";
             var Dwight = new SalesEmployee();
             Dwight.EmployeeName = "Dwight Schrute";
             var Phyllis = new SalesEmployee { EmployeeName = "Phyllis Leaf" };
             var Benji = new SalesEmployee { EmployeeName = "Benji Palmer" };
-
             var Oscar = new AccountingEmployee();
             Oscar.EmployeeName = "Oscar";
             var Kevin = new AccountingEmployee();
             Kevin.EmployeeName = "Kevin";
             var Holly = new SalesEmployee { EmployeeName = "Holly Flax" };
 
+            //Making lists of the sales employees and accountants
             var SalesEmployees = new List<SalesEmployee>
             {
                 Jim,
@@ -29,21 +30,30 @@ namespace DufflinMunder
                 Holly,
                 Benji,
             };
+
             var Accountants = new List<AccountingEmployee>
             {
                 Oscar,
                 Kevin
             };
+
+            //Making some sales to work with
             var dummySale1 = new Sale(Phyllis.EmployeeName, "Taco Hell", 2433, 52000, Recurring.Annually, "5 months");
             var dummySale2 = new Sale(Dwight.EmployeeName, "Bed, Math and Beyond", 0444, 29340, Recurring.Monthly, "10 months");
             var dummySale3 = new Sale(Jim.EmployeeName, "Catalina Wine Mixer", 4444, 125000, Recurring.Annually, "1 month");
             var dummySale4 = new Sale(Phyllis.EmployeeName, "Vance Refridgeration", 5252, 44500, Recurring.Weekly, "1 month");
+            var dummySale5 = new Sale(Holly.EmployeeName, "Wal-Bart", 123, 4525, Recurring.Monthly, "1 month");
+            var dummySale6 = new Sale(Benji.EmployeeName, "Not Target", 456, 4, Recurring.Annually, "2 month");
 
+            Holly.SalesDictionary.Add(dummySale5.ClientId, dummySale5);
+            Benji.SalesDictionary.Add(dummySale6.ClientId, dummySale6);
             Phyllis.SalesDictionary.Add(dummySale1.ClientId, dummySale1);
             Phyllis.SalesDictionary.Add(dummySale4.ClientId, dummySale4);
             Dwight.SalesDictionary.Add(dummySale2.ClientId, dummySale2);
             Jim.SalesDictionary.Add(dummySale3.ClientId, dummySale3);
 
+
+            //Making some offices and adding employees to the offices
             var scrantonOffice = new Office("Scranton Office");
             var nashuaOffice = new Office("Nashua Office");
 
@@ -61,12 +71,14 @@ namespace DufflinMunder
             var chosenOffice = new Office("holder");
             do
             {
-                BeginningOfOfficeChoice:
+            //Office Selection Menu
+            BeginningOfOfficeChoice:
                 Console.WriteLine(@"
                         1. Choose an Office.
                         2. Create a new Office.");
                 var officeSelection = Console.ReadLine();
 
+                //First switch statement handles the Office choice/creation
                 switch (officeSelection)
                 {
                     case "1":
@@ -92,10 +104,14 @@ namespace DufflinMunder
                         Console.Clear();
                         Console.WriteLine($"Thanks for adding {newOfficeName}");
                         goto BeginningOfOfficeChoice;
-                        
+                    default:
+                        Console.WriteLine("Invalid Entry. Press 1 or 2.");
+                        goto BeginningOfOfficeChoice;
+
                 }
 
-                BeginningOfMainMenu:
+            //Main Menu --------------------------------------------------
+            BeginningOfMainMenu:
                 Console.WriteLine($@"
                         Welcome to Dufflin/Munder Cardboard Co. 
                         Sales Portal!
@@ -114,6 +130,8 @@ namespace DufflinMunder
                 {
                     case "1":
                         Console.Clear();
+
+                        //This adds all sales to a master list so we can validate if the clientId already exists later in the form
                         var dictionaryOfAllSales = new Dictionary<int, Sale>();
                         foreach (var employee in SalesEmployees)
                         {
@@ -123,6 +141,8 @@ namespace DufflinMunder
                                 dictionaryOfAllSales.Add(sale.Key, sale.Value);
                             }
                         }
+
+
                         Console.WriteLine("Which person are you?");
 
                         var counter = 1;
@@ -145,7 +165,7 @@ namespace DufflinMunder
                         Console.Write("Client: ");
                         string clientName = Console.ReadLine();
 
-                        enterNewClientId:
+                    enterNewClientId:
                         Console.Write("ClientId: ");
                         var clientId = Console.ReadLine();
 
@@ -157,12 +177,13 @@ namespace DufflinMunder
 
                         Console.Write("Sale: $");
                         var salesTotal = Console.ReadLine();
-                        
-                        StartOfRecurring:
+
+                    //This validates if it is a valid Enum, if its not it will go to the else and run again
+                    StartOfRecurring:
                         Console.Write("Recurring (ex: Monthly, Annually, Quarterly): ");
                         var recurringAmount = Console.ReadLine();
                         Recurring passedInput = Recurring.None;
-                        if(Enum.IsDefined(typeof(Recurring), recurringAmount))
+                        if (Enum.IsDefined(typeof(Recurring), recurringAmount))
                         {
                             passedInput = (Recurring)Enum.Parse(typeof(Recurring), recurringAmount);
                         }
@@ -181,9 +202,10 @@ namespace DufflinMunder
                         Console.WriteLine($"Sale Input Recieved! Good work {chosenEmployee.EmployeeName}");
 
 
-                       goto BeginningOfMainMenu;
+                        goto BeginningOfMainMenu;
                     case "2":
                         Console.Clear();
+
                         Console.WriteLine("Which accountant are you?");
                         var accountantCounter = 1;
                         foreach (var employee in Accountants)
@@ -192,8 +214,10 @@ namespace DufflinMunder
                             accountantCounter++;
                         }
                         var userInput = Console.ReadLine();
-                        Console.Clear();
                         var selectedAccountant = Accountants[(Int32.Parse(userInput) - 1)];
+                        Console.Clear();
+
+
                         Console.WriteLine($"Monthly Sales Report For: {selectedAccountant.EmployeeName}");
                         Console.WriteLine();
                         foreach (var employee in SalesEmployees)
@@ -211,15 +235,16 @@ namespace DufflinMunder
                         }
                         goto BeginningOfMainMenu;
                     case "3":
+                        //Adds the employee
                         Console.Clear();
                         Console.WriteLine("Please enter new saleperson's name:");
                         var newSalesperson = Console.ReadLine();
-                        var newPerson = new SalesEmployee { EmployeeName = newSalesperson};
+                        var newPerson = new SalesEmployee { EmployeeName = newSalesperson };
                         SalesEmployees.Add(newPerson);
 
+                        //Adds the employee to the office
                         Console.WriteLine("Which Office do they belong to?");
                         var OfficeCounter = 1;
-
                         foreach (var office in listOfOffices)
                         {
                             Console.WriteLine($"{OfficeCounter}. {office.Name}");
@@ -269,10 +294,9 @@ namespace DufflinMunder
                             Console.WriteLine($"    Total: ${total}");
                             Console.WriteLine();
                         }
-                       goto BeginningOfMainMenu;
+                        goto BeginningOfMainMenu;
                     case "6":
                         goto BeginningOfOfficeChoice;
-
                     default:
                         Console.WriteLine($"Thank you for visiting {chosenOffice.Name}");
                         break;
