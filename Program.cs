@@ -74,9 +74,7 @@ namespace DufflinMunder
             {
             //Office Selection Menu
             BeginningOfOfficeChoice:
-                //Console.WriteLine(@"
-                //        1. Choose an Office.
-                //        2. Create a new Office.");
+               
                 AnsiConsole.MarkupLine(@"
                            [bold yellow on purple]1.Choose an Office.[/]
                            [bold purple on yellow]2.Create a new Office.[/]");
@@ -152,14 +150,14 @@ namespace DufflinMunder
 
                         var counter = 1;
 
-                        foreach (var employee in SalesEmployees)
+                        foreach (var employee in chosenOffice.OfficeEmployees)
                         {
                             Console.WriteLine($"{counter}. {employee.EmployeeName}");
                             counter++;
                         }
 
                         var employeeInput = Console.ReadLine();
-                        var chosenEmployee = SalesEmployees[(Int32.Parse(employeeInput) - 1)];
+                        var chosenEmployee = chosenOffice.OfficeEmployees[(Int32.Parse(employeeInput) - 1)];
 
                         Console.Clear();
 
@@ -285,7 +283,7 @@ namespace DufflinMunder
                         Console.WriteLine($"Timeframe: {dictionaryOfAllOfTheSales[Int32.Parse(clientNumber)].TimeFrame}");
                         goto BeginningOfMainMenu;
                     case "5":
-                        Console.WriteLine($"Monthly Sales Report For: {chosenOffice.Name}");
+                        Console.WriteLine($"Sales Report For: {chosenOffice.Name}");
                         Console.WriteLine();
                         foreach (var employee in chosenOffice.OfficeEmployees)
                         {
