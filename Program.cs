@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DufflinMunder.Employees;
+using Spectre.Console;
 
 namespace DufflinMunder
 {
@@ -73,11 +74,15 @@ namespace DufflinMunder
             {
             //Office Selection Menu
             BeginningOfOfficeChoice:
-                Console.WriteLine(@"
-                        1. Choose an Office.
-                        2. Create a new Office.");
+                //Console.WriteLine(@"
+                //        1. Choose an Office.
+                //        2. Create a new Office.");
+                AnsiConsole.MarkupLine(@"
+                           [bold yellow on purple]1.Choose an Office.[/]
+                           [bold purple on yellow]2.Create a new Office.[/]");
                 var officeSelection = Console.ReadLine();
 
+                
                 //First switch statement handles the Office choice/creation
                 switch (officeSelection)
                 {
@@ -112,18 +117,18 @@ namespace DufflinMunder
 
             //Main Menu --------------------------------------------------
             BeginningOfMainMenu:
-                Console.WriteLine($@"
-                        Welcome to Dufflin/Munder Cardboard Co. 
-                        Sales Portal!
+                AnsiConsole.MarkupLine($@"
+                        [underline purple]Welcome to Dufflin/Munder Cardboard Co. [/]
+                        [underline purple]Sales Portal![/]
 
-                        1.Enter Sales
-                        2.Generate Report For Accountant
-                        3.Add New Sales Employee
-                        4.Find a Sale
-                        5.Generate A Report for whole Office
-                        6.Go To Office Menu
-                        7.Exit 
-                        ------------------");
+                        [bold yellow]1.Enter Sales[/]
+                        [bold red]2.Generate Report For Accountant[/]
+                        [bold green]3.Add New Sales Employee[/]
+                        [bold yellow]4.Find a Sale[/]
+                        [bold red]5.Generate A Report for whole Office[/]
+                        [bold green]6.Go To Office Menu[/]
+                        [bold #FFC0CB]7.Exit[/]
+                       [bold #FFFFFF] ------------------[/]");
 
                 initialSelection = Console.ReadLine();
                 switch (initialSelection)
@@ -164,6 +169,7 @@ namespace DufflinMunder
 
                         Console.Write("Client: ");
                         string clientName = Console.ReadLine();
+
 
                     enterNewClientId:
                         Console.Write("ClientId: ");
