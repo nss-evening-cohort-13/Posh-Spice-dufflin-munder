@@ -301,6 +301,9 @@ namespace DufflinMunder
                         goto BeginningOfMainMenu;
                     case "6":
                         goto BeginningOfOfficeChoice;
+                    case "7":
+                        Console.WriteLine($"Thanks for coming to {chosenOffice.Name}");
+                        break;
                     default:
                         Console.Clear();
                         Console.WriteLine("Invalid Input! Choose one of the menu options.");
