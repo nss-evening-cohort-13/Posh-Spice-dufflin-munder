@@ -302,12 +302,12 @@ namespace DufflinMunder
                     case "6":
                         goto BeginningOfOfficeChoice;
                     default:
-                        Console.WriteLine($"Thank you for visiting {chosenOffice.Name}");
-                        break;
+                        Console.Clear();
+                        Console.WriteLine("Invalid Input! Choose one of the menu options.");
+                        goto BeginningOfMainMenu;
                 }
-
             } while (initialSelection != "7");
-
+           
         }
     }
 }
